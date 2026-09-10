@@ -1,12 +1,17 @@
-function Sidebar() {
+function Sidebar ({ activePage, onNavigate }) {
+  const pages = ['Upload', 'Chat', 'Quiz', 'Settings']
+
   return (
     <nav>
       <h2>Study Assistant</h2>
       <ul>
-        <li>Upload</li>
-        <li>Chat</li>
-        <li>Quiz</li>
-        <li>Settings</li>
+        {pages.map((page) => (
+          <li key={page}>
+            <button onClick={() => onNavigate(page)}>
+              {page}
+            </button>
+          </li>
+        ))}
       </ul>
     </nav>
   )
