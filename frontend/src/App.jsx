@@ -1,12 +1,15 @@
+import { useState } from 'react'
 import Sidebar from './components/Sidebar'
 
 function App() {
+  const [activePage, setActivePage] = useState('Upload')
+
   return (
     <div style={{ display: 'flex' }}>
-      <Sidebar />
+      <Sidebar activePage={activePage} onNavigate={setActivePage} />
       <div>
         <h1>Study Notes Assistant</h1>
-        <p>Upload your notes, ask questions, and quiz yourself — all in one place.</p>
+        <p>You're viewing: {activePage}</p>
       </div>
     </div>
   )
