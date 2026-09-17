@@ -21,13 +21,17 @@ function ChatWindow() {
         // TODO: Replace with actual API call to send the message and receive a response
 
         try {
-            // const response = await fetch('/api/chat', {
+            // const response = await fetch('/api/query', {
             //     method: 'POST',
             //     headers: { 'Content-Type': 'application/json' },
             //     body: JSON.stringify({ question: userMessage.text }),
             // });
-            // if (!response.ok) throw new Error('Query failed');
+            // if (!response.ok) {
+            // const errorData = await response.json();
+            // throw new Error(errorData.detail || 'Query failed');
+            // }
             // const data = await response.json();
+            // const mockAnswer = { role: 'assistant', text: data.answer };
 
             await new Promise((resolve) => setTimeout(resolve, 800));
             const mockAnswer = { role: 'assistant', text: `Mock answer to: ${userMessage.text}` };

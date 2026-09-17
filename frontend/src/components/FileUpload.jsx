@@ -7,10 +7,21 @@ function FileUpload() {
     const inputRef = useRef(null);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const isValidFileType = (file) => {
+        const allowedExtensions = ['.pdf', '.docx'];
+        const fileName = file.name.toLowerCase();
+        return allowedExtensions.some((ext) => fileName.endsWith(ext));
+    };
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            setSelectedFile(e.target.files[0]);
+            const file = e.target.files[0];
+            if (!isValidFileType(file)) {
+                setErrorMessage('Only PDF and DOCX files are supported.');
+                setStatus('error');
+                return;
+            }
+            setSelectedFile(file);
             setStatus('idle');
         }
     };
@@ -28,7 +39,13 @@ function FileUpload() {
         e.preventDefault();
         setIsDragging(false);
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            setSelectedFile(e.dataTransfer.files[0]);
+            const file = e.dataTransfer.files[0];
+            if (!isValidFileType(file)) {
+                setErrorMessage('Only PDF and DOCX files are supported.');
+                setStatus('error');
+                return;
+            }
+            setSelectedFile(file);
             setStatus('idle');
         }
     };
