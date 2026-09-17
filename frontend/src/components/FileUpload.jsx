@@ -5,6 +5,7 @@ function FileUpload() {
     const [isDragging, setIsDragging] = useState(false);
     const [status, setStatus] = useState('idle');
     const inputRef = useRef(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     const handleFileChange = (e) => {
@@ -35,24 +36,30 @@ function FileUpload() {
     const handleUpload = async () => {
         if (!selectedFile) return;
         setStatus('uploading');
-
-        // TODO: replace with real endpoint once API contract is confirmed with backend
+        setErrorMessage('');
 
         try {
             const formData = new FormData();
             formData.append('file', selectedFile);
 
-            // const response = await fetch('/api/upload', {
-                // method: 'POST',
-                // body: formData,
-            // });
-            // if (!response.ok) throw new Error('Upload failed');
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
 
-            await new Promise((resolve) => setTimeout(resolve, 800));
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || 'Upload failed');
+            }
+
+            const data = await response.json();
+            console.log('Upload successful:', data);
 
             setStatus('success');
+
         } catch (error) {
             console.error(error);
+            setErrorMessage(error.message);
             setStatus('error');
         }
     };
@@ -88,7 +95,7 @@ function FileUpload() {
             </button>
 
             {status === 'success' && <p className="file-upload__status">Upload successful</p>}
-            {status === 'error' && <p className="file-upload__status file-upload__status--error">Upload failed. Try again.</p>}
+            {status === 'error' && <p className="file-upload__status file-upload__status--error">{errorMessage || 'Upload failed. Try again.'}</p>}
         </div>
     );
 }
