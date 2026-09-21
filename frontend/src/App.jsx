@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import FileUpload from './components/FileUpload'
 import ChatWindow from './components/ChatWindow'
 import './App.css'
+import QuizGenerator from './components/QuizGenerator'
 
 function App() {
   const [activePage, setActivePage] = useState('Upload')
@@ -15,6 +16,7 @@ function App() {
         <p className="app__subtitle">You're viewing: {activePage}</p>
         {activePage === 'Upload' && <FileUpload />}
         {activePage === 'Chat' && <ChatWindow />}
+        {activePage === 'Quiz' && <QuizGenerator />}
       </main>
     </div>
   )
