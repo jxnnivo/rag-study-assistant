@@ -46,7 +46,7 @@ function ChatWindow() {
 
     return (
         <div className="chat-window">
-            <div className="chat-messages">
+            <div className="chat-messages" aria-live="polite">
                 {messages.length === 0 && (
                     <p className="chat-window__empty">Ask a question about your uploaded notes to get started.</p>
                 )}

@@ -89,6 +89,15 @@ function FileUpload() {
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
                 onClick={() => inputRef.current.click()}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        inputRef.current.click();
+                    }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label="Upload a PDF or DOCX file"
                 >
                 <input
                     ref={inputRef}

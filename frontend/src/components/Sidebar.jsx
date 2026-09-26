@@ -10,6 +10,7 @@ function Sidebar ({ activePage, onNavigate }) {
             <button 
             className={`sidebar__link ${activePage === page ? 'sidebar__link--active' : ''}`}
             onClick={() => onNavigate(page)}
+            aria-current={activePage === page ? 'page' : undefined}
             >
               {page}
             </button>
